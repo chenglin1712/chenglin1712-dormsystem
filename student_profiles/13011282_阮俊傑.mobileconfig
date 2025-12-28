@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>FullScreen</key>
+            <true/>
+            <key>IsRemovable</key>
+            <true/>
+            <key>Label</key>
+            <string>宿舍晚點名</string>
+            <key>PayloadDescription</key>
+            <string>設定 Web Clip 以進行宿舍點名</string>
+            <key>PayloadDisplayName</key>
+            <string>宿舍晚點名 (Web Clip)</string>
+            <key>PayloadIdentifier</key>
+            <string>com.dorm.webclip.4f2a4306-8c10-4ed1-8594-22a126dd73e1</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadUUID</key>
+            <string>4f2a4306-8c10-4ed1-8594-22a126dd73e1</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>Precomposed</key>
+            <true/>
+            <key>URL</key>
+            <string>https://09c235e1b096.ngrok-free.app/?token=4f2a4306-8c10-4ed1-8594-22a126dd73e1</string>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>宿舍點名系統 - 阮俊傑</string>
+    <key>PayloadIdentifier</key>
+    <string>com.dorm.profile.4f2a4306-8c10-4ed1-8594-22a126dd73e1</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>4f2a4306-8c10-4ed1-8594-22a126dd73e1</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
