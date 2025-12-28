@@ -2,11 +2,13 @@
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>宿舍晚點名</title>
 
     <link rel="manifest" href="/manifest.json" />
-
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -19,15 +21,15 @@
           Helvetica, Arial, sans-serif;
         text-align: center;
         padding: 20px;
-        background-color: #f2f2f7; /* iOS 風格背景灰 */
+        background-color: #f2f2f7;
         margin: 0;
       }
       .card {
         background: white;
-        padding: 30px;
+        padding: 25px;
         border-radius: 20px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin-top: 40px;
+        margin-top: 30px;
         max-width: 400px;
         margin-left: auto;
         margin-right: auto;
@@ -39,11 +41,45 @@
       }
       .room {
         font-size: 2.5em;
-        color: #007aff; /* iOS 藍 */
+        color: #007aff;
         font-weight: 800;
         margin: 10px 0;
         font-family: "SF Pro Display", sans-serif;
       }
+
+      /* --- 新增：拍照區塊樣式 --- */
+      .photo-upload-container {
+        margin: 20px 0;
+        padding: 15px;
+        border: 2px dashed #c7c7cc;
+        border-radius: 12px;
+        background-color: #f9f9f9;
+      }
+      /* 隱藏原始的 input file */
+      input[type="file"] {
+        display: none;
+      }
+      /* 美化拍照按鈕 */
+      .photo-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #e5e5ea;
+        color: #007aff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1em;
+      }
+      #photo-preview {
+        display: none;
+        width: 100%;
+        max-width: 200px;
+        margin-top: 15px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      /* ----------------------- */
+
       .btn {
         display: block;
         width: 100%;
@@ -55,7 +91,7 @@
         border: none;
         border-radius: 14px;
         cursor: pointer;
-        margin-top: 25px;
+        margin-top: 20px;
         box-shadow: 0 4px 6px rgba(0, 122, 255, 0.3);
         transition: transform 0.1s ease;
       }
@@ -63,7 +99,7 @@
         transform: scale(0.96);
       }
       .btn:disabled {
-        background-color: #34c759; /* iOS 綠 */
+        background-color: #34c759;
         box-shadow: none;
         cursor: default;
         transform: none;
@@ -92,12 +128,10 @@
       >
         晚點名系統
       </p>
-
       <div class="room">{{ student['room_number'] }}</div>
-
       <h1>{{ student['name'] }}</h1>
 
-      <form method="POST" id="checkinForm">
+      <form method="POST" id="checkinForm" enctype="multipart/form-data">
         <input type="hidden" name="lat" id="lat" />
         <input type="hidden" name="lng" id="lng" />
 
@@ -110,6 +144,7 @@
             border-radius: 10px;
             margin-bottom: 20px;
             border: 1px solid #fc8181;
+            font-size: 0.9em;
           "
         >
           {{ error_msg }}
@@ -121,81 +156,107 @@
         <p class="status-text" style="color: #34c759">今日點名成功</p>
 
         {% else %}
+        <div class="photo-upload-container">
+          <p style="margin-bottom: 10px; color: #666">請拍攝一張自拍照</p>
+          <label for="photo-input" class="photo-btn">📷 點擊拍照</label>
+          <input
+            type="file"
+            name="photo"
+            id="photo-input"
+            accept="image/*"
+            capture="user"
+            onchange="previewPhoto(this)"
+          />
+          <img id="photo-preview" src="#" alt="照片預覽" />
+        </div>
+
         <button
           class="btn"
           type="button"
           onclick="getLocationAndSubmit()"
           id="submitBtn"
         >
-          📍 立即點名
+          📍 送出點名 (含座標與照片)
         </button>
         <p class="status-text" id="statusText" style="color: #ff3b30">
           ⚠️ 尚未點名
         </p>
         {% endif %}
       </form>
+    </div>
 
-      <script>
-        function getLocationAndSubmit() {
-          var btn = document.getElementById("submitBtn");
-          var status = document.getElementById("statusText");
+    <div class="footer">學號: {{ student['student_id'] }}</div>
 
-          // 1. 鎖定按鈕避免重複按
-          btn.disabled = true;
-          btn.innerHTML = "📡 正在定位中...";
-          btn.style.backgroundColor = "#8e8e93";
-
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              function (position) {
-                // 2. 成功抓到位置
-                document.getElementById("lat").value = position.coords.latitude;
-                document.getElementById("lng").value =
-                  position.coords.longitude;
-
-                btn.innerHTML = "🚀 送出資料...";
-                // 3. 送出表單
-                document.getElementById("checkinForm").submit();
-              },
-              function (error) {
-                // 4. 定位失敗
-                alert(
-                  "定位失敗！請開啟 GPS 並允許瀏覽器讀取位置。\n錯誤代碼: " +
-                    error.code
-                );
-                btn.disabled = false;
-                btn.innerHTML = "📍 立即點名";
-                btn.style.backgroundColor = "#007aff";
-              },
-              {
-                enableHighAccuracy: true, // 要求高精準度
-                timeout: 5000, // 超時 5 秒
-                maximumAge: 0, // 不使用快取
-              }
-            );
-          } else {
-            alert("您的手機不支援定位功能。");
-            btn.disabled = false;
-          }
+    <script>
+      // ✅ 新增：照片預覽功能
+      function previewPhoto(input) {
+        var preview = document.getElementById("photo-preview");
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
         }
-      </script>
-    </div>
+      }
 
-    <div class="footer">
-      學號: {{ student['student_id'] }}<br />
-      裝置綁定 ID: ...{{ request.args.get('token')[-4:] if
-      request.args.get('token') else 'Cookie' }}
-    </div>
+      function getLocationAndSubmit() {
+        var btn = document.getElementById("submitBtn");
+        var photoInput = document.getElementById("photo-input");
+
+        // ✅ 新增：檢查是否已拍照
+        if (photoInput.files.length === 0) {
+          alert("請先拍攝自拍照才能點名喔！");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = "📡 正在取得位置...";
+        btn.style.backgroundColor = "#8e8e93";
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              document.getElementById("lat").value = position.coords.latitude;
+              document.getElementById("lng").value = position.coords.longitude;
+
+              btn.innerHTML = "🚀 正在上傳資料與照片...";
+              // 送出表單
+              document.getElementById("checkinForm").submit();
+            },
+            function (error) {
+              var errorMsg = "定位失敗！請確認 GPS 已開啟。";
+              if (error.code == 1) {
+                errorMsg = "您拒絕了位置存取，無法點名。";
+              } else if (error.code == 2) {
+                errorMsg = "無法偵測到您的位置，請移動到空曠處再試。";
+              } else if (error.code == 3) {
+                errorMsg = "定位逾時，請重試。";
+              }
+
+              alert(errorMsg);
+              btn.disabled = false;
+              btn.innerHTML = "📍 送出點名 (含座標與照片)";
+              btn.style.backgroundColor = "#007aff";
+            },
+            {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0,
+            }
+          );
+        } else {
+          alert("您的手機不支援定位功能。");
+          btn.disabled = false;
+        }
+      }
+    </script>
 
     {% else %}
     <div class="card">
       <h1 style="color: #ff3b30">⛔ 無法識別身分</h1>
-      <p style="color: #666; line-height: 1.6">
-        系統無法確認您的身分。<br /><br />
-        請確認您是從手機桌面的<br />
-        <strong>「宿舍點名」APP 圖示</strong><br />
-        進入系統。
-      </p>
+      <p>請從專屬連結進入。</p>
     </div>
     {% endif %}
   </body>
