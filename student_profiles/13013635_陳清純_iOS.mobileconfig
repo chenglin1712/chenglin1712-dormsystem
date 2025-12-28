@@ -9,36 +9,37 @@
             <true/>
             <key>IsRemovable</key>
             <true/>
+            <key>Icon</key>
+            <data>
+            </data>
             <key>Label</key>
             <string>宿舍晚點名</string>
             <key>PayloadDescription</key>
-            <string>設定 Web Clip 以進行宿舍點名</string>
+            <string>設定 Web Clip 連結</string>
             <key>PayloadDisplayName</key>
-            <string>宿舍晚點名 (Web Clip)</string>
+            <string>宿舍晚點名 (陳清純)</string>
             <key>PayloadIdentifier</key>
-            <string>com.dorm.webclip.7129786b-1c81-4be6-9a65-54328386974b</string>
+            <string>com.dorm.checkin.13013635</string>
             <key>PayloadType</key>
             <string>com.apple.webClip.managed</string>
             <key>PayloadUUID</key>
-            <string>7129786b-1c81-4be6-9a65-54328386974b</string>
+            <string>fe3a0d7d-dff3-46c2-89dd-07c9298289cd</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>Precomposed</key>
             <true/>
             <key>URL</key>
-            <string>http://127.0.0.1:5000/?token=7129786b-1c81-4be6-9a65-54328386974b</string>
+            <string>http://127.0.0.1:8000/?token=7129786b-1c81-4be6-9a65-54328386974b</string>
         </dict>
     </array>
     <key>PayloadDisplayName</key>
-    <string>宿舍點名系統 - 陳清純</string>
+    <string>宿舍點名安裝檔 - 陳清純</string>
     <key>PayloadIdentifier</key>
-    <string>com.dorm.profile.7129786b-1c81-4be6-9a65-54328386974b</string>
-    <key>PayloadRemovalDisallowed</key>
-    <false/>
+    <string>com.dorm.checkin.profile.13013635</string>
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>7129786b-1c81-4be6-9a65-54328386974b</string>
+    <string>0fda2f63-4ffe-480c-b904-51115c900af9</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
