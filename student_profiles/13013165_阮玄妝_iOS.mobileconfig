@@ -23,13 +23,13 @@
             <key>PayloadType</key>
             <string>com.apple.webClip.managed</string>
             <key>PayloadUUID</key>
-            <string>11285b7c-49bd-43ed-8fd5-7749eab6aa94</string>
+            <string>80093d3e-2587-4942-833e-fdaeff1444b4</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>Precomposed</key>
             <true/>
             <key>URL</key>
-            <string>http://127.0.0.1:8000/?token=265d2994-31d2-45cd-ae77-67a895f9e3d4</string>
+            <string>http://34.145.50.206/?token=265d2994-31d2-45cd-ae77-67a895f9e3d4</string>
         </dict>
     </array>
     <key>PayloadDisplayName</key>
@@ -39,7 +39,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>21a175a6-7ea2-4ada-87cc-1ecf04d7e33c</string>
+    <string>eb547613-908f-4cac-ac71-d0b89f871083</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>

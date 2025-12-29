@@ -49,6 +49,10 @@ def create_tables():
         device_uuid TEXT NOT NULL,
         checkin_time DATETIME DEFAULT CURRENT_TIMESTAMP,
         status TEXT,
+        ip_address TEXT,          -- ✅ 請補上這一行
+        gps_lat REAL,             -- (建議) 既然 app.py 有用到 gps，這裡最好也補上
+        gps_lng REAL,             -- (建議) 同上
+        photo_filename TEXT,      -- (建議) app.py 也有用到照片欄位
         FOREIGN KEY (device_uuid) REFERENCES device_profiles (device_uuid)
     );
     ''')

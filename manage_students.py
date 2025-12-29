@@ -13,7 +13,7 @@ OUTPUT_DIR = 'student_profiles'
 
 # ⚠️ 注意：如果要給手機用，請填入 ngrok 網址 (例如 "https://xxxx.ngrok-free.app")
 # 如果只是本機測試，可以用 "http://127.0.0.1:8000"
-BASE_URL = "http://127.0.0.1:8000"  
+BASE_URL = "http://34.145.50.206" 
 
 # ==========================================
 # 🛠️ 核心功能
